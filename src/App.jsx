@@ -1,6 +1,7 @@
 ﻿import { useState } from "react";
 import ImageRenamer from "./ImageRenamer";
 import ImageResizer from "./ImageResizer";
+import YelpDownloader from "./YelpDownloader";
 
 const TOOLS = [
   {
@@ -12,6 +13,11 @@ const TOOLS = [
     id: "resizer",
     label: "Image Resizer",
     desc: "Bulk resize & convert images",
+  },
+  {
+    id: "yelp",
+    label: "Yelp Photos",
+    desc: "Download all photos from a Yelp profile",
   },
 ];
 
@@ -28,6 +34,12 @@ export default function App() {
     return (
       <Page onBack={() => setActive(null)}>
         <ImageResizer />
+      </Page>
+    );
+  if (active === "yelp")
+    return (
+      <Page onBack={() => setActive(null)}>
+        <YelpDownloader />
       </Page>
     );
   return (
@@ -101,6 +113,39 @@ export default function App() {
                     />
                   </svg>
                 )}
+                {tool.id === "yelp" && (
+                  <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+                    <rect
+                      x="2"
+                      y="2"
+                      width="24"
+                      height="24"
+                      rx="6"
+                      stroke="#1a1a1a"
+                      strokeWidth="2.5"
+                    />
+                    <path
+                      d="M9 8v8l3-2 3 2V8"
+                      stroke="#1a1a1a"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <circle
+                      cx="18"
+                      cy="18"
+                      r="3"
+                      stroke="#1a1a1a"
+                      strokeWidth="1.5"
+                    />
+                    <path
+                      d="M20.1 20.1L22 22"
+                      stroke="#1a1a1a"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                )}
               </div>
               <span style={styles.cardTitle}>{tool.label}</span>
               <span style={styles.cardDesc}>{tool.desc}</span>
@@ -167,10 +212,10 @@ const styles = {
     marginTop: 8,
     fontWeight: 400,
   },
-  main: { width: "100%", maxWidth: 580 },
+  main: { width: "100%", maxWidth: 720 },
   grid: {
     display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+    gridTemplateColumns: "repeat(3, 1fr)",
     gap: 12,
     animation: "fadeUp .5s ease .1s both",
   },

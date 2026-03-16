@@ -18,6 +18,17 @@ export default defineConfig(({ mode }) => {
             });
           },
         },
+        "/api/yelp-img": {
+          target: "https://s3-media0.fl.yelpcdn.com",
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/yelp-img/, ""),
+          configure: (proxy) => {
+            proxy.on("proxyReq", (proxyReq) => {
+              proxyReq.removeHeader("origin");
+              proxyReq.removeHeader("referer");
+            });
+          },
+        },
       },
     },
   };
