@@ -1,4 +1,4 @@
-# Social Media Utilities
+# My Marketing Tools
 
 A collection of handy browser-based tools built with React and Vite.
 

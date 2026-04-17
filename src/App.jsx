@@ -51,7 +51,7 @@ export default function App() {
       `}</style>
 
       <header style={styles.header}>
-        <h1 style={styles.title}>Social Media Utilities</h1>
+        <h1 style={styles.title}>My Marketing Tools</h1>
         <p style={styles.subtitle}>A collection of handy tools</p>
       </header>
 
