@@ -23,8 +23,10 @@ npm install
 Create a `.env` file in the project root:
 
 ```
-VITE_ANTHROPIC_API_KEY=your-api-key-here
+ANTHROPIC_API_KEY=your-api-key-here
 ```
+
+This key is read server-side by the serverless function in `api/`, so it is **not** exposed to the browser. Do not prefix it with `VITE_`.
 
 ### Development
 
