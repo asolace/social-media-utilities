@@ -15,6 +15,11 @@ export default defineConfig(({ mode }) => {
             proxy.on("proxyReq", (proxyReq) => {
               proxyReq.removeHeader("origin");
               proxyReq.removeHeader("referer");
+              // Inject the API key here, in the Node dev server — it never
+              // reaches the browser. Mirrors api/anthropic/[...path].js in prod.
+              if (env.ANTHROPIC_API_KEY) {
+                proxyReq.setHeader("x-api-key", env.ANTHROPIC_API_KEY);
+              }
             });
           },
         },
