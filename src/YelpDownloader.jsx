@@ -93,7 +93,7 @@ export default function YelpDownloader() {
     if (toDownload.length === 1) {
       try {
         const resp = await fetch(
-          `/api/yelp-img${new URL(toDownload[0].src).pathname}`,
+          `/api/yelp-img?path=${encodeURIComponent(new URL(toDownload[0].src).pathname)}`,
         );
         const blob = await resp.blob();
         const a = document.createElement("a");
@@ -116,7 +116,9 @@ export default function YelpDownloader() {
       for (let i = 0; i < toDownload.length; i++) {
         const img = toDownload[i];
         try {
-          const resp = await fetch(`/api/yelp-img${new URL(img.src).pathname}`);
+          const resp = await fetch(
+            `/api/yelp-img?path=${encodeURIComponent(new URL(img.src).pathname)}`,
+          );
           const blob = await resp.blob();
           zip.file(`yelp-photo-${i + 1}.jpg`, blob);
         } catch {

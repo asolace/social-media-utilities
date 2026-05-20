@@ -26,7 +26,13 @@ export default defineConfig(({ mode }) => {
         "/api/yelp-img": {
           target: "https://s3-media0.fl.yelpcdn.com",
           changeOrigin: true,
-          rewrite: (path) => path.replace(/^\/api\/yelp-img/, ""),
+          // Client sends the image path as ?path=… (matches the prod function);
+          // turn it back into the real Yelp CDN path here.
+          rewrite: (url) => {
+            const query = url.split("?")[1] || "";
+            const p = new URLSearchParams(query).get("path") || "";
+            return "/" + p.replace(/^\/+/, "");
+          },
           configure: (proxy) => {
             proxy.on("proxyReq", (proxyReq) => {
               proxyReq.removeHeader("origin");
